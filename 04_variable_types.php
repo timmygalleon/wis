@@ -6,6 +6,7 @@
     <title>Variable Types</title>
 </head>
 <body>
+    
     <?php 
         //Integers, Doubles, Booleans, Strings
         $int_var = 123456;
