@@ -13,6 +13,8 @@ CREATE TABLE Course (
     Credits INT
 );
 
+
+
 CREATE TABLE Instructor (
     InstructorID INT PRIMARY KEY,
     FirstName VARCHAR(50),

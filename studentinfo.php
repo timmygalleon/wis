@@ -13,6 +13,8 @@ if ($conn->connect_error) {
 }
 
 
+
+
 $query1 = mysqli_query($conn, "SELECT * FROM `studentinfo`");
 
 $result = mysqli_num_rows($query1);
