@@ -9,6 +9,7 @@
     
     <?php 
         //Integers, Doubles, Booleans, Strings
+        //sampl push
         $int_var = 123456;
         $double_var = 123.456;
         $null_var = NULL;
