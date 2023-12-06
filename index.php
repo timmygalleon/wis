@@ -386,7 +386,7 @@ tbody td.active {
     <td><?php echo $row['address']; ?></td>
     <td><?php echo $row['email']; ?></td>
     <td><?php echo $row['contactNo']; ?></td>
-       <td class="add-delete"><a href="view-data.php?editid=<?php echo htmlentities($row['studId'])?>" class="option-btn">View</a><a href="index.php?delid=<?php echo htmlentities($row['studId'])?>" onClick ="return confirm('Do you want to delete this record?');" class="option-btn">Delete</a></td>
+       <td class="add-delete"><a href="view-data.php?editid=<?php echo htmlentities($row['studId'])?>" class="option-btn">View</a><a href="index.php?delid=<?php echo htmlentities($row['studId'])?>" onClick ="return confirm('Do you want to delete this record (Student ID: #<?php echo htmlentities($row['studId'])?>)?');" class="option-btn">Delete</a></td>
 
                     </tr>
                     <?php } ?> 
