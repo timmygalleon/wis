@@ -31,7 +31,7 @@ if ($conn->connect_error) {
 
 
 if($sql){
-      echo "<script>alert('New Report Added!!');</script>";
+      echo "<script>alert('New Record Added!!');</script>";
       echo "<script>document.location='index.php';</script>";
     }else{
       echo "<script>alert('Something went wrong!!');</script>";
