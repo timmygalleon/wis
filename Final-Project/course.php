@@ -3,12 +3,11 @@ include_once 'connection.php';
 
 if (isset($_REQUEST['submit'])) {
     $coursename =   $_REQUEST['coursename'];
-    $coursecode = $_REQUEST['coursecode'];
     $coursecredit = $_REQUEST['coursecredit'];
 
 
         // Insert the new student record
-        $sql = mysqli_query($conn, "INSERT INTO `course`(`CourseName`, `CourseCode`, `Credits`) VALUES ('$coursename','$coursecode','$coursecredit')");
+        $sql = mysqli_query($conn, "INSERT INTO `course`(`CourseName`, `Credits`) VALUES ('$coursename','$coursecredit')");
 
         if ($sql) {
             echo "<script>alert('New Course Added!!');</script>";
@@ -59,8 +58,8 @@ if(isset($_GET['delid'])){
     <ul class="nav-links">
       <li>
         <a href="index.php">
-          <i class='bx bx-grid-alt' ></i>
-          <span class="link_name">Dashboard</span>
+          <i class='bx bx-user' ></i>
+          <span class="link_name">User</span>
         </a>
       </li>
 
@@ -128,9 +127,8 @@ if(isset($_GET['delid'])){
                 <thead>
                         <th> Course ID</th>
                         <th> Course Name</th>
-                        <th> Course Code</th>
                         <th> Credit/s</th>
-                        <th> Option</th>
+                        <th style="width: 200px;"> Option</th>
 
                     </tr>
                 </thead>
@@ -144,7 +142,6 @@ if(isset($_GET['delid'])){
                   <tr>
                     <td><?php echo $row['CourseID']; ?></td>
                     <td class="td-cap"><?php echo $row['CourseName']; ?></td>
-                    <td class="td-cap" style="text-transform: uppercase;"><?php echo $row['CourseCode']; ?></td>
                     <td class="td-cap"><?php echo $row['Credits']; ?></td>
                     <td class="option">
                     <a href="view-update-course.php?editid=<?php echo htmlentities($row['CourseID'])?>" class="option-btn">
@@ -202,10 +199,6 @@ if(isset($_GET['delid'])){
         <input type="text" name="coursename" placeholder="Course Name" required>
       </div>
 
-      <div class="input-field">
-        <label for="fname">Course Code</label>
-        <input type="text" style="text-transform: uppercase;" name="coursecode" placeholder="Course Code" required>
-      </div>
 
       <div class="input-field">
         <label for="mname">Unit Credit</label>

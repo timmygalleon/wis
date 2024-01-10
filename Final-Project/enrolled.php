@@ -69,7 +69,6 @@ $result3 = mysqli_num_rows($query3);
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8">
-    <title> Drop Down Sidebar Menu | CodingLab </title>
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="css/enrolled.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
@@ -86,8 +85,8 @@ $result3 = mysqli_num_rows($query3);
     <ul class="nav-links">
       <li>
         <a href="index.php">
-          <i class='bx bx-grid-alt' ></i>
-          <span class="link_name">Dashboard</span>
+          <i class='bx bx-user' ></i>
+          <span class="link_name">User</span>
         </a>
       </li>
 
@@ -137,7 +136,7 @@ $result3 = mysqli_num_rows($query3);
       <div class="add-div">
         <button onclick="openModal()">
         <i class='bx bx-user-plus'></i>
-        <span>Add User</span>
+        <span>Enroll New</span>
         </button>
       </div>
     </div>

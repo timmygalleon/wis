@@ -3,27 +3,34 @@ include_once 'connection.php';
 
 
 
-$query1 = mysqli_query($conn, "SELECT * FROM `instructor` WHERE InstructorID ORDER BY InstructorID DESC");
+$query1 = mysqli_query($conn, "SELECT * FROM `student` WHERE StudentID ORDER BY StudentID DESC");
 $result = mysqli_num_rows($query1);
+
+if(isset($_GET['delid'])){
+  $id =intval($_GET['delid']);
+  $sql =mysqli_query($conn,"DELETE FROM `student` WHERE StudentID='$id'");
+  echo"<script>alert('Record has been Deleted Successfully!!!)</script>";
+  echo"<script>window.location='student.php'</script>";
+
+}
 
 
 
 if(isset($_POST['update'])){
 
   $eid =$_GET['editid'];
+   $lname =   $_REQUEST['lname'];
     $fname = $_REQUEST['fname'];
-    $lname =   $_REQUEST['lname'];
+    $dob = $_REQUEST['dob'];
     $email = $_REQUEST['email'];
     $contact = $_REQUEST['contact'];
 
-
-
-     $sql =mysqli_query($conn, "UPDATE `instructor` SET `FirstName`='$fname',`LastName`='$lname',`Email`='$email',`Phone`='$contact' WHERE InstructorID='$eid'");
+    $sql =mysqli_query($conn, "UPDATE `student` SET `LastName`='$lname',`FirstName`='$fname',`DateOfBirth`='$dob',`Email`='$email',`Phone`='$contact' WHERE StudentID='$eid'");
 
 
   if ($sql) {
-    echo "<script>alert('Instructor has been updated successfully!!');</script>";
-    echo "<script>document.location='instructor.php'</script>";
+    echo "<script>alert('The record has been updated successfully!!');</script>";
+    echo "<script>document.location='student.php'</script>";
 }else {
             echo "<script>alert('Something went wrong!!');</script>";
         }
@@ -95,7 +102,7 @@ if(isset($_POST['update'])){
 .add-user-frame form {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     width: 50%;
-    height: 60%;
+    height: 80%;
     border-radius: 10px;
     background-color: white;
     position: relative;
@@ -132,9 +139,6 @@ input {
     text-transform: capitalize;
 }
 
-
-
-
 .save-btn {
     width: 100%;
 }
@@ -155,67 +159,6 @@ form label {
     font-weight: bold;
 }
 
-
-
-.custom-select {
-      position: relative;
-      display: inline-block;
-      width: 100%;
-    }
-
-    /* Style for the select box */
-    .custom-select select {
-      display: none; /* Hide default select box */
-    }
-
-    /* Style for the custom input */
-    .custom-select input {
-      width: 100%;
-    margin-top: 10px;
-    border: 1px solid rgb(133, 133, 133);
-    padding: 5px 10px;
-    border-radius: 6px;
-    outline: none;
-    background-color: rgb(241, 241, 241);
-    text-transform: capitalize;
-    }
-
-    /* Style for the dropdown arrow */
-    .custom-select .select-arrow {
-      position: absolute;
-      top: 25px;
-      right: 15px;
-      transform: translateY(-50%);
-    }
-
-    /* Style for the dropdown options */
-    .custom-select .dropdown-content {
-      display: none;
-      position: absolute;
-      background-color: #f9f9f9;
-      min-width: 100%;
-      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    }
-
-    /* Style for the dropdown options */
-    .custom-select .dropdown-content a {
-      color: black;
-      padding: 5px 10px;
-      text-decoration: none;
-      display: block;
-      font-size: 12px;
-    }
-
-    /* Style for the dropdown options on hover */
-    .custom-select .dropdown-content a:hover {
-      background-color: #ddd;
-    }
-
-    /* Show the dropdown options when the input is focused */
-    .custom-select input:focus + .dropdown-content {
-      display: block;
-    }
-
      </style>
 
    </head>
@@ -233,7 +176,7 @@ form label {
         </a>
       </li>
 
-      <li>
+      <li  class="active">
         <a href="student.php">
           <i class='bx bxs-user-detail'></i>
           <span class="link_name">Student</span>
@@ -245,7 +188,7 @@ form label {
           <span class="link_name">Course</span>
         </a>
       </li>
-      <li class="active">
+      <li>
         <a href="instructor.php">
           <i class='bx bx-face'></i>
           <span class="link_name">Instructor</span>
@@ -271,7 +214,7 @@ form label {
   <section class="home-section">
     <div class="home-content">
       <i class='bx bx-menu' ></i>
-      <span class="text">View & Update Instructor Info</span>
+      <span class="text">View & Update Student Info</span>
     </div>
 
 
@@ -286,37 +229,41 @@ form label {
   <?php
 
     $eid = $_GET['editid'];
-    $sql=mysqli_query($conn,"SELECT * FROM `instructor` WHERE InstructorID='$eid'");
+    $sql=mysqli_query($conn,"SELECT * FROM `student` WHERE StudentID='$eid'");
     while($row=mysqli_fetch_array($sql)){
     ?>
     <form  method="post">
-      <a href="instructor.php" class="close-modal"><i class='bx bx-x'></i></a>
+      <a href="student.php" class="close-modal"><i class='bx bx-x'></i></a>
       
-      <header>View & Update Instructor Info</header>
+      <header>View & Update Student Info</header>
 
       <div class="input-field">
-        <label>First Name</label>
-        <input type="text" name="fname" placeholder="Firs Name" value="<?php echo $row['FirstName']; ?>">
-      </div>
-
-      <div class="input-field">
-        <label>Last Name</label>
+        <label for="lname">Last Name</label>
         <input type="text" name="lname" placeholder="Last Name" value="<?php echo $row['LastName']; ?>">
       </div>
 
       <div class="input-field">
-        <label>Email</label>
-        <input type="text" name="email" placeholder="Email" value="<?php echo $row['Email']; ?>">
+        <label for="fname">First Name</label>
+        <input type="text" name="fname" placeholder="First Name" value="<?php echo $row['FirstName']; ?>">
+      </div>
+
+
+
+      <div class="input-field">
+        <label for="dob">Date of Birth</label>
+        <input style="text-transform: lowercase;" type="date" name="dob" placeholder="Date of Birth" value="<?php echo $row['DateOfBirth']; ?>">
+      </div>
+
+
+      <div class="input-field">
+        <label for="email">Email</label>
+        <input style="text-transform: lowercase;" type="email" name="email" placeholder="Email Address" value="<?php echo $row['Email']; ?>">
       </div>
 
       <div class="input-field">
-        <label>Phone</label>
-        <input type="text" name="contact" placeholder="Phone" value="<?php echo $row['Phone']; ?>">
+        <label for="contact">Contact Number</label>
+        <input type="tel" pattern="\+63\d{10}" maxlength="13" autocomplete="off" name="contact" placeholder="Contact Number" value="<?php echo $row['Phone']; ?>">
       </div>
-
-
-
-    
 
       <div class="save-btn">
         <button type="submit" name="update" onClick="return confirm('Data will be overwritten. Do you want to continue?');">Update Data</button>
@@ -356,47 +303,6 @@ form label {
 
 
   </section>
-
-
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-    var customSelect = document.querySelector(".custom-select");
-    var input = customSelect.querySelector("input");
-    var dropdownContent = customSelect.querySelector(".dropdown-content");
-    var options = dropdownContent.querySelectorAll("a");
-
-    options.forEach(function(option) {
-      option.addEventListener("click", function() {
-        input.value = option.textContent;
-      });
-    });
-
-    // Close the dropdown when clicking outside of it
-    window.addEventListener("click", function(e) {
-      if (!customSelect.contains(e.target)) {
-        dropdownContent.style.display = "none";
-      }
-    });
-
-    // Show the dropdown when clicking on the input
-    input.addEventListener("click", function(e) {
-      dropdownContent.style.display = "block";
-      e.stopPropagation(); // Prevent the window click event from closing the dropdown
-    });
-
-    // Handle custom input
-    input.addEventListener("input", function() {
-      var inputValue = input.value.toLowerCase();
-      options.forEach(function(option) {
-        if (option.textContent.toLowerCase() === inputValue) {
-          input.value = option.textContent;
-          return;
-        }
-      });
-    });
-  });
-</script>
 
 
   <script src="script.js"></script>

@@ -3,36 +3,21 @@ include_once 'connection.php';
 
 
 
-$query1 = mysqli_query($conn, "SELECT * FROM `student` WHERE StudentID ORDER BY StudentID DESC");
-$result = mysqli_num_rows($query1);
-
-if(isset($_GET['delid'])){
-  $id =intval($_GET['delid']);
-  $sql =mysqli_query($conn,"DELETE FROM `student` WHERE StudentID='$id'");
-  echo"<script>alert('Record has been Deleted Successfully!!!)</script>";
-  echo"<script>window.location='student.php'</script>";
-
-}
-
 
 
 if(isset($_POST['update'])){
 
   $eid =$_GET['editid'];
-   $lname =   $_REQUEST['lname'];
-    $fname = $_REQUEST['fname'];
-    $mname = $_REQUEST['mname'];
-    $dob = $_REQUEST['dob'];
+   $uname =   $_REQUEST['username'];
     $email = $_REQUEST['email'];
-    $contact = $_REQUEST['contact'];
-    $address = $_REQUEST['address'];
+    $password = $_REQUEST['password'];
 
-    $sql =mysqli_query($conn, "UPDATE `student` SET `LastName`='$lname',`FirstName`='$fname',`MiddleName`='$mname',`DateOfBirth`='$dob',`Email`='$email',`Phone`='$contact',`Address`='$address' WHERE StudentID='$eid'");
+    $sql =mysqli_query($conn, "UPDATE `users` SET `Username`='$uname',`Email`='$email',`Passwd`='$password' WHERE UserID='$eid'");
 
 
   if ($sql) {
     echo "<script>alert('The record has been updated successfully!!');</script>";
-    echo "<script>document.location='student.php'</script>";
+    echo "<script>document.location='index.php'</script>";
 }else {
             echo "<script>alert('Something went wrong!!');</script>";
         }
@@ -50,7 +35,6 @@ if(isset($_POST['update'])){
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8">
-    <title> Drop Down Sidebar Menu | CodingLab </title>
     <link rel="stylesheet" href="main.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -105,7 +89,7 @@ if(isset($_POST['update'])){
 .add-user-frame form {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     width: 50%;
-    height: 80%;
+    height: 300px;
     border-radius: 10px;
     background-color: white;
     position: relative;
@@ -174,8 +158,8 @@ form label {
     <ul class="nav-links">
       <li>
         <a href="index.php">
-          <i class='bx bx-grid-alt' ></i>
-          <span class="link_name">Dashboard</span>
+          <i class='bx bx-user' ></i>
+          <span class="link_name">User</span>
         </a>
       </li>
 
@@ -217,7 +201,7 @@ form label {
   <section class="home-section">
     <div class="home-content">
       <i class='bx bx-menu' ></i>
-      <span class="text">View & Update Student Info</span>
+      <span class="text">View & Update User Info</span>
     </div>
 
 
@@ -232,38 +216,19 @@ form label {
   <?php
 
     $eid = $_GET['editid'];
-    $sql=mysqli_query($conn,"SELECT * FROM `student` WHERE StudentID='$eid'");
+    $sql=mysqli_query($conn,"SELECT * FROM `users` WHERE UserID='$eid'");
     while($row=mysqli_fetch_array($sql)){
     ?>
     <form  method="post">
-      <a href="student.php" class="close-modal"><i class='bx bx-x'></i></a>
+      <a href="index.php" class="close-modal"><i class='bx bx-x'></i></a>
       
-      <header>View & Update Student Info</header>
+      <header>View & Update User Info</header>
 
       <div class="input-field">
-        <label for="lname">Last Name</label>
-        <input type="text" name="lname" placeholder="Last Name" value="<?php echo $row['LastName']; ?>">
+        <label for="lname">User Name</label>
+        <input type="text" name="username" placeholder="User Name" value="<?php echo $row['Username']; ?>">
       </div>
 
-      <div class="input-field">
-        <label for="fname">First Name</label>
-        <input type="text" name="fname" placeholder="First Name" value="<?php echo $row['FirstName']; ?>">
-      </div>
-
-      <div class="input-field">
-        <label for="mname">Middle Name</label>
-        <input type="text" name="mname" placeholder="Middle Name" value="<?php echo $row['MiddleName']; ?>">
-      </div>
-
-      <div class="input-field">
-        <label for="dob">Date of Birth</label>
-        <input style="text-transform: lowercase;" type="date" name="dob" placeholder="Date of Birth" value="<?php echo $row['DateOfBirth']; ?>">
-      </div>
-
-      <div class="input-field">
-        <label for="address">Address</label>
-        <input type="text" name="address" placeholder="Address" value="<?php echo $row['Address']; ?>">
-      </div>
 
       <div class="input-field">
         <label for="email">Email</label>
@@ -271,9 +236,11 @@ form label {
       </div>
 
       <div class="input-field">
-        <label for="contact">Contact Number</label>
-        <input type="tel" pattern="\+63\d{10}" maxlength="13" autocomplete="off" name="contact" placeholder="Contact Number" value="<?php echo $row['Phone']; ?>">
+        <label for="lname">Password</label>
+        <input type="text" name="password" placeholder="Password" value="<?php echo $row['Passwd']; ?>">
       </div>
+
+
 
       <div class="save-btn">
         <button type="submit" name="update" onClick="return confirm('Data will be overwritten. Do you want to continue?');">Update Data</button>

@@ -6,10 +6,9 @@ if (isset($_REQUEST['submit'])) {
     $lname =   $_REQUEST['lname'];
     $email = $_REQUEST['email'];
     $contact = $_REQUEST['contact'];
-    $subject = $_REQUEST['subject'];
 
     // Check if the student with the same details already exists
-    $checkQuery = mysqli_query($conn, "SELECT * FROM `instructor` WHERE `LastName`='$lname' AND `FirstName`='$fname' AND `TeachingSubject`='$subject'");
+    $checkQuery = mysqli_query($conn, "SELECT * FROM `instructor` WHERE `LastName`='$lname' AND `FirstName`='$fname'");
 
 
     if (mysqli_num_rows($checkQuery) > 0) {
@@ -17,7 +16,7 @@ if (isset($_REQUEST['submit'])) {
     } else {
         // Insert the new student record
 
-        $sql = mysqli_query($conn, "INSERT INTO `instructor`(`FirstName`, `LastName`, `Email`, `Phone`, `TeachingSubject`) VALUES ('$fname','$lname','$email','$contact','$subject')");
+        $sql = mysqli_query($conn, "INSERT INTO `instructor`(`FirstName`, `LastName`, `Email`, `Phone`) VALUES ('$fname','$lname','$email','$contact')");
 
 
 
@@ -73,8 +72,8 @@ if(isset($_GET['delid'])){
     <ul class="nav-links">
       <li>
         <a href="index.php">
-          <i class='bx bx-grid-alt' ></i>
-          <span class="link_name">Dashboard</span>
+          <i class='bx bx-user' ></i>
+          <span class="link_name">User</span>
         </a>
       </li>
 
@@ -146,7 +145,6 @@ if(isset($_GET['delid'])){
                         <th> Last Name</th>
                         <th> Email</th>
                         <th> Phone</th>
-                        <th> Instructor Subject</th>
                         <th> Option</th>
 
                     </tr>
@@ -164,7 +162,7 @@ if(isset($_GET['delid'])){
                     <td class="td-cap"><?php echo $row['LastName']; ?></td>
                     <td class="td-cap"><?php echo $row['Email']; ?></td>
                     <td><?php echo $row['Phone']; ?></td>
-                    <td class="long-word" style="text-transform: lowercase;"><?php echo $row['TeachingSubject']; ?></td>
+                
                     <td class="option">
                     <a href="view-update-instrutor.php?editid=<?php echo htmlentities($row['InstructorID'])?>" class="option-btn">
                     <i class='bx bx-show-alt'></i>
@@ -214,7 +212,7 @@ if(isset($_GET['delid'])){
 
     <form action="">
       <button onclick="closeModal()" class="close-modal"><i class='bx bx-x'></i></button>
-      <header>Add new Student</header>
+      <header>Add new Instructor</header>
 
       <div class="input-field">
         <label for="lname">First Name</label>
@@ -240,16 +238,7 @@ if(isset($_GET['delid'])){
       </div>
 
 
-      <div class="input-field" style="width: 85%;">
-        <label for="address">Instructor Subject</label>
-        <select name="subject" id="subject" class="select">
-    <option value="MOBILE APPLICATION DESIGN AND DEVELOPMENT">MOBILE APPLICATION DESIGN AND DEVELOPMENT</option>
-    <option value="EMERGING TECHNOLOGIES IN IT">EMERGING TECHNOLOGIES IN IT</option>
-    <option value="WEB INFORMATION SYSTEM">WEB INFORMATION SYSTEM</option>
-    <option value="CAPSTONE PROJECT">CAPSTONE PROJECT</option>
-    <option value="THE CONTEMPORARY WORLD">THE CONTEMPORARY WORLD</option>
-  </select>
-      </div>
+
 
       <div class="save-btn">
         <button type="submit" name="submit">Add Data</button>

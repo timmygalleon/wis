@@ -12,11 +12,10 @@ if(isset($_POST['update'])){
 
   $eid =$_GET['editid'];
    $coursename =   $_REQUEST['coursename'];
-    $coursecode = $_REQUEST['coursecode'];
     $coursecredit = $_REQUEST['coursecredit'];
 
 
-    $sql =mysqli_query($conn, "UPDATE `course` SET `CourseName`='$coursename',`CourseCode`='$coursecode',`Credits`='$coursecredit' WHERE CourseID='$eid'");
+    $sql =mysqli_query($conn, "UPDATE `course` SET `CourseName`='$coursename',`Credits`='$coursecredit' WHERE CourseID='$eid'");
 
 
   if ($sql) {
@@ -39,7 +38,6 @@ if(isset($_POST['update'])){
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8">
-    <title> Drop Down Sidebar Menu | CodingLab </title>
     <link rel="stylesheet" href="main.css">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -163,8 +161,8 @@ form label {
     <ul class="nav-links">
       <li>
         <a href="index.php">
-          <i class='bx bx-grid-alt' ></i>
-          <span class="link_name">Dashboard</span>
+          <i class='bx bx-user' ></i>
+          <span class="link_name">User</span>
         </a>
       </li>
 
@@ -228,15 +226,11 @@ form label {
       
       <header>View & Update Course Info</header>
 
-      <div class="input-field" style="width: 85%;">
+      <div class="input-field">
         <label>Course Name</label>
         <input type="text" name="coursename" placeholder="Course Name" value="<?php echo $row['CourseName']; ?>">
       </div>
 
-      <div class="input-field">
-        <label>Course Code</label>
-        <input type="text" name="coursecode" placeholder="Course Code" value="<?php echo $row['CourseCode']; ?>">
-      </div>
 
       <div class="input-field">
         <label>Course Credits</label>
