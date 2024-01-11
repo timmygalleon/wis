@@ -85,9 +85,9 @@
         // Create contents of table
 
         $users = "INSERT INTO Users (Username, Email, Passwd)
-            VALUES ('User1', 'user@email.com', 'password'),
-            ('UserTwo', 'user@gmail.com', '12345678'),
-            ('ThirdUser', 'user@example.com', '87456321')";
+            VALUES ('User1', 'user1@email.com', 'password'),
+            ('User2', 'user2@gmail.com', '12345678'),
+            ('User3', 'user3@example.com', '87456321')";
 
         $student = "INSERT INTO Student (FirstName, LastName, DateOfBirth, Email, Phone)
             VALUES ('Yew', 'Wey', '2001-09-08', 'ywe@email.com', '+639245826142'),
